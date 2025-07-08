@@ -154,3 +154,9 @@ cython_debug/
 
 # VScode
 .vscode/
+
+# Slurm
+slurm/
+
+# Wandb
+wandb/
