@@ -17,7 +17,12 @@ from torch.utils.data import DataLoader
 
 base_path = "/user/burghardt17/u17926/.project/dir.project/rene/data/experanto/"
 paths = [
-    "030063__24_05_16",
+    #"030063__24_05_16",
+    #"030065__24_05_15",
+    #"030091__24_09_26",
+    #"030092__24_10_01",
+    "030093__24_09_14",
+    #"030094__24_09_19",
 ]
 full_paths = [base_path + path + "/" for path in paths]
 
@@ -111,9 +116,12 @@ with open_dict(cfg):
         "interpolation_mode": "nearest_neighbor"
     }
     cfg.dataset.modality_config.odor_trials.transforms = {}
-    cfg.dataset.modality_config.odor_trials.transforms.ToSMILES = {
-        "_target_": "includes.transforms.CIDToSMILESTransform"
+    cfg.dataset.modality_config.odor_trials.transforms.Subselect = {
+        "_target_": "includes.transforms.SubselectTransform"
     }
+    # cfg.dataset.modality_config.odor_trials.transforms.ToSMILES = {
+    #     "_target_": "includes.transforms.CIDToSMILESTransform"
+    # }
     cfg.dataset.modality_config.odor_trials.transforms.ToMol = {
         "_target_": "includes.transforms.SMILESToMolTransform"
     }
@@ -173,11 +181,11 @@ model = MPNNPOMWrapper(
 ).to(device)
 
 seed = 1
-nb_epoch = 200
-epoch_log_frequency = 2
+nb_epoch = 1000
+epoch_log_frequency = 10
 # learning_rate = ExponentialDecay(initial_rate=0.001, decay_rate=0.5, decay_steps=32*15, staircase=True)
-learning_rate = 0.001
-weight_decay = 1e-5
+learning_rate = 0.05
+weight_decay = 0
 optimizer = torch.optim.Adam(
     model.parameters(), lr=learning_rate, weight_decay=weight_decay
 )

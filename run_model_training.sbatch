@@ -11,9 +11,14 @@
 
 . ~/.bashrc
 
+export PYTHONUNBUFFERED=1
+
 echo $CUDA_VISIBLE_DEVICES
 nvidia-smi
 
 micromamba activate odor-model
+
+pip install -e /user/burghardt17/u17926/.project/dir.project/rene/projects/experanto
+pip install -e /user/burghardt17/u17926/.project/dir.project/rene/projects/openpom
 
 python /user/burghardt17/u17926/.project/dir.project/rene/projects/openpom/src/mpnn_pom_experanto_train.py

@@ -4,14 +4,22 @@ from rdkit import Chem
 from openpom.feat.graph_featurizer import GraphFeaturizer
 
 
-class CIDToSMILESTransform():
+class SubselectTransform():
     def __init__(self, dim=0):
         super().__init__()
         self.dim = dim
+
+    def __call__(self, x):
+        return x[:, self.dim]
+
+
+class CIDToSMILESTransform():
+    def __init__(self):
+        super().__init__()
         self.property_name = "SMILES"
 
-    def __call__(self, odor_concentration_matrix):
-        results = from_cids(odor_concentration_matrix[:, self.dim].astype(int), property_list=[self.property_name])
+    def __call__(self, x):
+        results = from_cids(x.astype(int), property_list=[self.property_name])
         return [d[self.property_name] for d in results]
 
 
@@ -27,6 +35,7 @@ class MolToGraphTransform():
 
     def __call__(self, mols):
         return [self.featurizer(m)[0] for m in mols]
+
 
 class GraphToDGLGraph():
     def __init__(self, self_loop=False):

@@ -307,6 +307,7 @@ class MPNNPOM(nn.Module):
             its shape will be ``(dgl_graph.batch_size, self.n_classes)``
             if self.n_tasks is 1.
         """
+        breakpoint()
         node_feats: torch.Tensor = g.ndata[self.nfeat_name]
         edge_feats: torch.Tensor = g.edata[self.efeat_name]
 
